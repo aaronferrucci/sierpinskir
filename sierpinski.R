@@ -26,7 +26,7 @@ plots <- list()
 for (n in 3:6) {
   anchors <- get_anchors(n)
   
-  # For values larger than 3, the points reced toward 0. 1 / (n-2) is the correcting factor.
+  # For values larger than 3, the points recede toward 0. [1 /(n-2)] is the correcting factor.
   plot.anchors <- anchors / (n - 2)
   base.g <- ggplot() + coord_fixed(1) +
     xlim(c(min(plot.anchors$x), max(plot.anchors$x))) +
