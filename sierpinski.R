@@ -9,7 +9,6 @@ random.point <- function(anchors) {
 
 get_anchors <- function(n) {
   offset <- pi / 2 - (n - 1) * pi / n
-  print(offset)
   anchors <- data.frame(
     x = sapply(0:(n - 1), function(x) cos(offset + x * 2 * pi / n)),
     y = sapply(0:(n - 1), function(x) sin(offset + x * 2 * pi / n))
@@ -27,8 +26,12 @@ plots <- list()
 for (n in 3:6) {
   anchors <- get_anchors(n)
   
+  # For values larger than 3, the points reced toward 0. 1 / (n-2) is the correcting factor.
+  plot.anchors <- anchors / (n - 2)
   base.g <- ggplot() + coord_fixed(1) +
-    geom_point(data=anchors, aes(x = x, y = y), color="red", size=4) +
+    xlim(c(min(plot.anchors$x), max(plot.anchors$x))) +
+    ylim(c(min(plot.anchors$y), max(plot.anchors$y))) +
+    geom_point(data=plot.anchors, aes(x = x, y = y), color="red", size=4) +
     theme(
       panel.grid.major=element_blank(),
       panel.grid.minor=element_blank(),
