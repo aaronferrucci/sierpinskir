@@ -24,10 +24,20 @@ get_next <- function(current.point, n, anchors) {
 
 plots <- list()
 
-for (n in 3:5) {
+for (n in 3:6) {
   anchors <- get_anchors(n)
   
-  base.g <- ggplot() + geom_point(data=anchors, aes(x = x, y = y), color="red", size=4)
+  base.g <- ggplot() + coord_fixed(1) +
+    geom_point(data=anchors, aes(x = x, y = y), color="red", size=4) +
+    theme(
+      panel.grid.major=element_blank(),
+      panel.grid.minor=element_blank(),
+      axis.text.x=element_blank(),
+      axis.text.y=element_blank(),
+      axis.title.x=element_blank(),
+      axis.title.y=element_blank()  
+    )
+  
   plots[[length(plots) + 1]] <- base.g
   
   x <- numeric(0)
